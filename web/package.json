@@ -1,0 +1,41 @@
+{
+  "name": "visualiser-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "postinstall": "node scripts/postinstall.cjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "framer-motion": "^11.18.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "overrides": {
+    "rollup": "npm:@rollup/wasm-node",
+    "postcss-selector-parser": "^7.1.6"
+  },
+  "devDependencies": {
+    "@rollup/wasm-node": "^4.65.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-basic-ssl": "^1.2.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "jsdom": "^25.0.1",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.6.2",
+    "vite": "^6.3.5",
+    "vitest": "^4.1.12"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
+  }
+}

@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   VISUALISER — Global Styles
+   ============================================================ */
+
+/* Custom properties for dynamic values */
+:root {
+  --glow-color: #7c3aed;
+  --glow-spread: 40px;
+}
+
+/* Base reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0a0a1a;
+  color: #f0f0ff;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Background ambient glow */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(124, 58, 237, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(91, 33, 182, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(167, 139, 250, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #3b3b6b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* ---- Video element ---- */
+video {
+  border-radius: 12px;
+  max-width: 100%;
+}
+
+/* ---- Focus visible ---- */
+:focus-visible {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Utility: glass card ---- */
+.glass-card {
+  background: rgba(30, 30, 63, 0.6);
+  border: 1px solid rgba(59, 59, 107, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+}
+
+/* ---- Utility: accent glow button ---- */
+.btn-primary {
+  @apply relative inline-flex items-center justify-center gap-2
+         px-8 py-4 rounded-xl font-semibold text-sm uppercase tracking-widest
+         bg-accent text-white
+         transition-all duration-300
+         hover:bg-accent-glow hover:shadow-[0_0_30px_rgba(124,58,237,0.5)]
+         active:scale-95 select-none cursor-pointer;
+}
+
+.btn-secondary {
+  @apply relative inline-flex items-center justify-center gap-2
+         px-6 py-3 rounded-xl font-medium text-sm
+         bg-surface-elevated text-text-secondary border border-surface-border
+         transition-all duration-300
+         hover:border-accent hover:text-text-primary
+         active:scale-95 select-none cursor-pointer;
+}
+
+/* ---- Noise texture overlay for depth ---- */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* ---- Recording indicator pulse ---- */
+@keyframes recording-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.recording-dot {
+  animation: recording-pulse 1s ease-in-out infinite;
+}
